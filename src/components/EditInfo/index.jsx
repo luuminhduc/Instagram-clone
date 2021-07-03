@@ -28,13 +28,12 @@ const EditInfo = () => {
 
   const dispatch = useDispatch();
 
+  const watchAvartar = watch("avatar");
+
   const onSubmit = (data) => {
     const userInfo = { ...data, avatar: clientAvatar, email: user.email };
     dispatch(updateUserInfo(userInfo, uid));
   };
-
-  console.log(userList);
-
   useEffect(() => {
     if (user) {
       const { name, userName, avatar, phoneNumber, gender, about } = user;
@@ -45,22 +44,21 @@ const EditInfo = () => {
       setValue("about", about);
       setClientAvatar(avatar);
     }
-  }, [user]);
+  }, [user, setValue]);
 
   useEffect(() => {
     if (uid) setUser(userList.find((el) => el.id === uid));
   }, [uid, userList]);
 
   useEffect(() => {
-    if (watch("avatar") && watch("avatar").length > 0) {
-      fileListToBase64(watch("avatar")).then((arr) => {
+    if (watchAvartar && watchAvartar.length > 0) {
+      fileListToBase64(watchAvartar).then((arr) => {
         setClientAvatar(arr[0]);
       });
     }
-  }, [watch("avatar")]);
+  }, [watchAvartar]);
 
   const editInfo = () => {
-    const { avatar } = user;
     return (
       <form onSubmit={handleSubmit((data) => onSubmit(data))}>
         {/* AVATAR */}

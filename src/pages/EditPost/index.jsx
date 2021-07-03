@@ -17,15 +17,17 @@ const EditPost = () => {
 
   const { register, watch } = useForm();
 
+  const watchImg = watch("images");
+
   const history = useHistory();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (watch("images") && watch("images").length > 0) {
-      fileListToBase64(watch("images")).then((arr) => setImageList(arr));
+    if (watchImg && watchImg.length > 0) {
+      fileListToBase64(watchImg).then((arr) => setImageList(arr));
     }
-  }, [watch, watch("images")]);
+  }, [watchImg]);
 
   const handlePost = () => {
     const post = {
@@ -43,7 +45,11 @@ const EditPost = () => {
     return (
       <div className="flex flex-row justify-start items-center">
         {avatar ? (
-          <img src={avatar} className="rounded-full mr-3 w-14 h-14" />
+          <img
+            src={avatar}
+            alt="Avatar"
+            className="rounded-full mr-3 w-14 h-14"
+          />
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -77,11 +83,12 @@ const EditPost = () => {
       />
       {imageList.length > 0 && (
         <div>
-          <img src={imageList[currentIdx]} className="mb-5" alt="" />
+          <img src={imageList[currentIdx]} className="mb-5" alt="Something" />
           <div className="grid grid-cols-12 gap-5">
             {imageList.map((el, idx) => (
               <img
                 key={idx}
+                alt="Hello"
                 onClick={() => setCurrentIdx(idx)}
                 className="cursor-pointer"
                 src={el}

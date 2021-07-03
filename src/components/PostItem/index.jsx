@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import PosterInfo from "../PosterInfo";
 import PostImageList from "../postImageList";
@@ -7,9 +6,7 @@ import AddComment from "../AddComment";
 import PostInfo from "../postInfo";
 
 const PostItem = ({ post }) => {
-  const userReducer = useSelector((state) => state.userReducer);
-
-  const { uid, imageList, text, likes, time, id } = post;
+  const { uid, imageList, id } = post;
 
   return (
     <div className="border border-solid border-gray-200 mb-5 bg-white">

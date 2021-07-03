@@ -69,7 +69,11 @@ const UserInfo = ({ user }) => {
     <div className="border-b border-solid border-gray-200 pb-5 mb-5">
       <div className="w-full flex flex-row justify-evenly items-start">
         {avatar ? (
-          <img className="h-36 w-36 rounded-full" src={avatar} />
+          <img
+            className="h-36 w-36 rounded-full"
+            alt="Something"
+            src={avatar}
+          />
         ) : (
           <div className="flex justify-end items-end bg-gray-300 cursor-pointer rounded-full p-3">
             <svg

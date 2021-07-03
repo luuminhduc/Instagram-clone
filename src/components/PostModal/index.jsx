@@ -21,7 +21,7 @@ const PostModal = () => {
 
   useEffect(() => {
     setUserPostList(postList.filter((el) => el.uid === userId));
-  }, [userId]);
+  }, [userId, postList]);
 
   useEffect(() => {
     if (selectedPost) {

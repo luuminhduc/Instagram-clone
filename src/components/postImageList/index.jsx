@@ -15,6 +15,7 @@ const PostImageList = ({ imageList, isFull, modal, currentPostIndex }) => {
     <div className="h-full w-full relative bg-center bg-cover">
       {imageList.length > 0 && (
         <img
+          alt={`Something`}
           className={`${isFull && "h-full"} ${
             modal && "w-44 md:w-auto"
           } mx-auto`}

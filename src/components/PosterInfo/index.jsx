@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { selectPost } from "../../redux/action/postAction/actions";
 
@@ -8,8 +8,6 @@ const PosterInfo = ({ uid, id }) => {
   const { userList } = userReducer;
   const poster = userList.find((el) => el.id === uid);
   const { avatar, userName, email } = poster;
-
-  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-row justify-between items-center p-3">
