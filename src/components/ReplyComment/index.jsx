@@ -14,7 +14,7 @@ const ReplyComment = ({ uid, commentId }) => {
   useEffect(() => {
     setReplyList(
       commentList.filter(
-        (el) => el.replyId.uid === uid && el.replyId.commentId === commentId
+        (el) => el.replyId?.uid === uid && el.replyId?.commentId === commentId
       )
     );
   }, [uid, commentId, commentList]);
