@@ -3,6 +3,8 @@ import PosterInfo from "../PosterInfo";
 import PostImageList from "../postImageList";
 import PostInfo from "../postInfo";
 import AddComment from "../AddComment";
+import PostCommentList from "../PostCommentList";
+import "./index.css";
 
 const SinglePost = ({ post, modal, currentPostIndex }) => {
   const renderBlock = () => {
@@ -24,7 +26,9 @@ const SinglePost = ({ post, modal, currentPostIndex }) => {
           <div className="border-b hidden md:block border-solid w-full border-gray-200">
             <PosterInfo uid={uid} id={id} />
           </div>
-          <div className="flex-grow"></div>
+          <div className="flex-grow div overflow-y-scroll w-full">
+            <PostCommentList postId={id} />
+          </div>
           <div className="p-3">
             <PostInfo post={post} />
           </div>

@@ -1,12 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import PosterInfo from "../PosterInfo";
 import PostImageList from "../postImageList";
 import AddComment from "../AddComment";
 import PostInfo from "../postInfo";
+import { useDispatch } from "react-redux";
+import { selectPost } from "../../redux/action/postAction/actions";
 
 const PostItem = ({ post }) => {
   const { uid, imageList, id } = post;
+
+  const dispatch = useDispatch();
 
   return (
     <div className="border border-solid border-gray-200 mb-5 bg-white">
@@ -16,9 +19,12 @@ const PostItem = ({ post }) => {
       <div className="p-3">
         <PostInfo post={post} />
 
-        <NavLink className="text-sm text-gray-500" to={`/post/${id}`}>
+        <span
+          onClick={() => dispatch(selectPost(post))}
+          className="text-sm cursor-pointer text-gray-500"
+        >
           View comments
-        </NavLink>
+        </span>
       </div>
 
       <AddComment postId={id} />

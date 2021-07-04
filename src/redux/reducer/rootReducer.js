@@ -5,6 +5,7 @@ import registerReducer from "./registerReducer";
 import userReducer from "./userReducer";
 import postReducer from "./postReducer";
 import modalReducer from "./modalReducer";
+import commentReducer from "./commentReducer";
 export default combineReducers({
     firebaseReducer,
     loginReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
     userReducer,
     postReducer,
     modalReducer,
+    commentReducer
 })

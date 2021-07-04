@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { fetchComments } from "../../redux/action/commentAction/actions";
 import { fetchPostList } from "../../redux/action/postAction/actions";
 import {
   fetchAllUsers,
@@ -30,6 +31,7 @@ const Container = ({ children }) => {
   useEffect(() => {
     dispatch(fetchAllUsers());
     dispatch(fetchPostList());
+    dispatch(fetchComments());
   }, [dispatch]);
 
   return (

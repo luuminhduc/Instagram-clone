@@ -37,6 +37,8 @@ const App = () => {
           <Route exact path="/">
             <Container>
               <Home/>
+              <PostModal/>
+
             </Container>
           </Route>
           <Route exact path="/register">
@@ -49,7 +51,6 @@ const App = () => {
             <Container>
             <UserPage/>
             <PostModal/>
-
             </Container>
           </Route>
           <Route exact path="/account/edit">

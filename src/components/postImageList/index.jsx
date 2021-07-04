@@ -4,9 +4,6 @@ import { useState } from "react";
 
 const PostImageList = ({ imageList, isFull, modal, currentPostIndex }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  console.log(currentIndex);
-
   useEffect(() => {
     setCurrentIndex(0);
   }, [currentPostIndex]);

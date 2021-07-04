@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { selectPost } from "../../redux/action/postAction/actions";
@@ -8,6 +9,8 @@ const PosterInfo = ({ uid, id }) => {
   const { userList } = userReducer;
   const poster = userList.find((el) => el.id === uid);
   const { avatar, userName, email } = poster;
+
+  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-row justify-between items-center p-3">
@@ -31,14 +34,14 @@ const PosterInfo = ({ uid, id }) => {
           </svg>
         )}
         <NavLink
-          onClick={() => selectPost(null)}
+          onClick={() => dispatch(selectPost(null))}
           to={`/user/${uid}`}
           className="font-semibold border-b hover:border-solid hover:border-black border-white"
         >
           {userName ? userName : email}
         </NavLink>
       </div>
-      <NavLink to={`/post/${id}`}>
+      <NavLink onClick={() => dispatch(selectPost(null))} to={`/post/${id}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6 text-gray-600"
