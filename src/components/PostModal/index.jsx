@@ -38,7 +38,7 @@ const PostModal = () => {
   };
 
   return selectedPost ? (
-    <div className="fixed z-40 top-0 left-0 w-screen min-h-screen flex flex-row justify-center items-center bg-black bg-opacity-40">
+    <div className="fixed z-20 top-0 left-0 w-screen min-h-screen flex flex-row justify-center items-center bg-black bg-opacity-40">
       <svg
         onClick={() => dispatch(selectPost(null))}
         xmlns="http://www.w3.org/2000/svg"

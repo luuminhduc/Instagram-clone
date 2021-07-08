@@ -1,13 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectPost } from "../../redux/action/postAction/actions";
 
 const UserPagePostItem = ({ item }) => {
   const [showBlock, setShowBlock] = useState(false);
-  const { likes } = item;
+  const { likes, imageList, id } = item;
 
   const dispatch = useDispatch();
+
+  const commentReducer = useSelector((state) => state.commentReducer);
+  const { commentList } = commentReducer;
 
   const handleClick = () => {
     dispatch(selectPost(item));
@@ -21,7 +24,23 @@ const UserPagePostItem = ({ item }) => {
         onMouseEnter={() => setShowBlock(true)}
         className="relative cursor-pointer"
       >
-        <img src={item.imageList[0]} className="" alt="" />
+        {imageList.length > 1 && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 absolute z-10 top-3 right-3 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"
+            />
+          </svg>
+        )}
+        <img src={imageList[0]} className="" alt="" />
         <div
           className={`absolute top-0 text-white left-0 w-full h-full bg-black bg-opacity-40 ${
             showBlock ? "flex" : "hidden"
@@ -55,7 +74,7 @@ const UserPagePostItem = ({ item }) => {
                 clipRule="evenodd"
               />
             </svg>
-            <span>0</span>
+            <span>{commentList.filter((el) => el.postId === id)?.length}</span>
           </div>
         </div>
       </div>

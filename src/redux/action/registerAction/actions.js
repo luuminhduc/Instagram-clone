@@ -3,19 +3,20 @@ import * as actions from './actionTypes';
 export const registerRequest = (user,history) => async (dispatch,getState,{getFirebase,getFirestore})  => {
     const firebase = getFirebase();
     const firestore = getFirestore();
-    const {email,password} = user;
+    const {email,password,userName} = user;
     firebase.auth().createUserWithEmailAndPassword(email,password)
     .then((res) => {
+        console.log("FIT");
         firestore.collection('users').doc(res.user.uid).set({
+            followerList:[],
+            followingList:[],
             email,
-            userName:'',
+            userName,
             name:'',
             gender:'',
             avatar:'',
             about:'',
             phoneNumber:'',
-            followerList:[],
-            followingList:[],
         }).then(() => {
             dispatch(registerSuccess(history))
         });

@@ -6,6 +6,7 @@ import userReducer from "./userReducer";
 import postReducer from "./postReducer";
 import modalReducer from "./modalReducer";
 import commentReducer from "./commentReducer";
+import loadingReducer from "./loadingReducer";
 export default combineReducers({
     firebaseReducer,
     loginReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
     userReducer,
     postReducer,
     modalReducer,
-    commentReducer
+    commentReducer,
+    loadingReducer
 })

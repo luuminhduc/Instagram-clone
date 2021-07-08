@@ -42,11 +42,26 @@ const Register = () => {
               className={`p-4 rounded ${
                 errors.email && "border-2 border-solid border-red-500"
               } focus:outline-none focus:shadow-lg bg-trueGray-100 w-full shadow-sm`}
-              placeholder="Name"
+              placeholder="Email"
             />
             {errors.email && errors.email.type === "required" && (
               <small className="text-red-500 text-sm">
                 Email can not be blank
+              </small>
+            )}
+          </div>
+          <div className="mb-3 flex flex-col justify-start items-start">
+            <input
+              {...register("userName", { required: true })}
+              type="text"
+              className={`p-4 rounded ${
+                errors.userName && "border-2 border-solid border-red-500"
+              } focus:outline-none focus:shadow-lg bg-trueGray-100 w-full shadow-sm`}
+              placeholder="UserName"
+            />
+            {errors.userName && errors.userName.type === "required" && (
+              <small className="text-red-500 text-sm">
+                Username can not be blank
               </small>
             )}
           </div>

@@ -10,6 +10,8 @@ import {
 } from "../../redux/action/userAction/actions";
 import Header from "../Header";
 import Modal from "../Modal";
+import AccountModal from "../AccountModal";
+import Footer from "../Footer";
 
 const Container = ({ children }) => {
   const firebaseReducer = useSelector((state) => state.firebaseReducer);
@@ -35,12 +37,14 @@ const Container = ({ children }) => {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 text-gray-800 pb-20">
+    <div className="min-h-screen w-full bg-gray-50 text-gray-800">
       <Header />
       <Modal />
+      <AccountModal />
       <div className="pt-36 mx-auto md:max-w-4xl sm:max-w-full px-3 md:px-0">
         {children}
       </div>
+      <Footer></Footer>
     </div>
   );
 };

@@ -14,6 +14,8 @@ import EditAccount from './pages/EditAccount';
 import EditPost from './pages/EditPost';
 import SinglePostPage from './pages/SinglePostPage';
 import PostModal from './components/PostModal';
+import Suggestion from './pages/Suggestion';
+import Loading from './components/Loading';
 
 const rrfProps = {
   firebase,
@@ -33,6 +35,7 @@ const App = () => {
       <ReactReduxFirebaseProvider {...rrfProps}>
         <AuthIsLoaded>
         <BrowserRouter>
+        <Loading/>
         <Switch>
           <Route exact path="/">
             <Container>
@@ -66,6 +69,11 @@ const App = () => {
           <Route exact path={`/post/:postId`}>
             <Container>
             <SinglePostPage/>
+            </Container>
+          </Route>
+          <Route exact path={`/suggestion`}>
+            <Container>
+            <Suggestion/>
             </Container>
           </Route>
         </Switch>

@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import { getReplyId } from "../../redux/action/commentAction/actions";
 import Date from "../Date";
 import ReplyComment from "../ReplyComment";
-
+import { firestore } from "../../firebase/config";
+import firebase from "firebase";
 const PostCommentItem = ({ item }) => {
   const { uid, text, likes, time, id } = item;
 
@@ -19,7 +20,28 @@ const PostCommentItem = ({ item }) => {
     setCommenter(userList.find((el) => el.id === uid));
   }, [uid, userList]);
 
+  const firebaseReducer = useSelector((state) => state.firebaseReducer);
+  const { auth } = firebaseReducer;
+
   const dispatch = useDispatch();
+
+  const handleLikeComment = () => {
+    if (!likes.includes(auth.uid)) {
+      firestore
+        .collection("comments")
+        .doc(id)
+        .update({
+          likes: firebase.firestore.FieldValue.arrayUnion(auth.uid),
+        });
+    } else {
+      firestore
+        .collection("comments")
+        .doc(id)
+        .update({
+          likes: firebase.firestore.FieldValue.arrayRemove(auth.uid),
+        });
+    }
+  };
 
   const getCommenterAvatar = () => {
     const { avatar } = commenter;
@@ -87,20 +109,37 @@ const PostCommentItem = ({ item }) => {
       <div className="flex flex-row justify-between items-start">
         {commenter && getCommenterAvatar()}
         {commenter && getComment()}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-          />
-        </svg>
+        <span onClick={handleLikeComment} className="cursor-pointer">
+          {likes.includes(auth.uid) ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 text-rose-500 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                clipRule="evenodd"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
+            </svg>
+          )}
+        </span>
       </div>
     </div>
   );

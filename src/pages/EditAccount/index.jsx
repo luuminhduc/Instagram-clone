@@ -2,12 +2,14 @@ import React from "react";
 import EditInfo from "../../components/EditInfo";
 
 const EditAccount = () => {
-  const blockArr = ["Edit info", "Change password"];
+  const blockArr = ["Edit info"];
 
   const currentBlock = "Edit info";
 
   const renderBlock = () => {
     switch (currentBlock) {
+      case "Change password":
+        return <div>Sorry you can not change your password</div>;
       default:
         return <EditInfo />;
     }

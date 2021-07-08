@@ -31,7 +31,13 @@ const EditInfo = () => {
   const watchAvartar = watch("avatar");
 
   const onSubmit = (data) => {
-    const userInfo = { ...data, avatar: clientAvatar, email: user.email };
+    const userInfo = {
+      ...data,
+      avatar: clientAvatar,
+      email: user.email,
+      followerList: user.followerList,
+      followingList: user.followingList,
+    };
     dispatch(updateUserInfo(userInfo, uid));
   };
   useEffect(() => {
@@ -127,7 +133,7 @@ const EditInfo = () => {
           <div className="md:w-1/3">
             <label className="">Name</label>
           </div>
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 w-full">
             <input
               {...register("name")}
               type="text"
@@ -143,7 +149,7 @@ const EditInfo = () => {
             <label className="">User name</label>
           </div>
 
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 w-full">
             <input
               {...register("userName", { required: true })}
               type="text"
@@ -165,7 +171,7 @@ const EditInfo = () => {
           <div className="md:w-1/3">
             <label className="">About</label>
           </div>
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 w-full">
             <textarea
               rows="5"
               {...register("about")}
@@ -181,7 +187,7 @@ const EditInfo = () => {
           <div className="md:w-1/3">
             <label className="">Gender</label>
           </div>
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 w-full">
             <select
               {...register("gender")}
               className="px-2 py-1 focus:outline-none focus:border-blue-600 border w-full border-solid border-gray-200"
@@ -197,7 +203,7 @@ const EditInfo = () => {
           <div className="md:w-1/3">
             <label className="">Phone number</label>
           </div>
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 w-full">
             <input
               {...register("phoneNumber")}
               type="text"

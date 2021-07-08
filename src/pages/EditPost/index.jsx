@@ -129,9 +129,9 @@ const EditPost = () => {
         </div>
         <button
           onClick={handlePost}
-          disabled={watch("text") ? false : true}
+          disabled={watch("text") || watch("images")?.length > 0 ? false : true}
           className={`px-7 py-3  text-white ${
-            !watch("text")
+            watch("images")?.length <= 0 || !watch("text")
               ? "bg-gray-300 cursor-not-allowed"
               : "cursor-pointer bg-blue-600 hover:bg-blue-500"
           }  rounded  focus:outline-none`}

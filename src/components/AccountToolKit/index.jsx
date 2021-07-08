@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../../redux/action/loginAction/actions";
 
-const AccountToolKit = () => {
+const AccountToolKit = ({ setBlockVisible }) => {
   const firebaseReducer = useSelector((state) => state.firebaseReducer);
   const { auth } = firebaseReducer;
   const { uid } = auth;
@@ -12,7 +12,7 @@ const AccountToolKit = () => {
 
   return (
     <div className="bg-white w-52 transform text-sm shadow-2xl absolute top-8 -left-36">
-      <NavLink to={`/user/${uid}`}>
+      <NavLink onClick={() => setBlockVisible(false)} to={`/user/${uid}`}>
         <div className="flex p-3 cursor-pointer w-full flex-row justify-start items-center hover:bg-gray-100">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,10 @@ const AccountToolKit = () => {
         </div>
       </NavLink>
 
-      <div className="flex cursor-pointer p-3 w-full flex-row justify-start items-center hover:bg-gray-100">
+      <div
+        onClick={() => setBlockVisible(false)}
+        className="flex cursor-pointer p-3 w-full flex-row justify-start items-center hover:bg-gray-100"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 mr-3 w-5"
@@ -56,7 +59,13 @@ const AccountToolKit = () => {
         <span>Setting</span>
       </div>
 
-      <div className="flex cursor-pointer p-3 w-full flex-row justify-start items-center hover:bg-gray-100">
+      <div
+        onClick={() => {
+          setBlockVisible(false);
+          dispatch(logout());
+        }}
+        className="flex cursor-pointer p-3 w-full flex-row justify-start items-center hover:bg-gray-100"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 mr-3 w-5"
@@ -71,7 +80,13 @@ const AccountToolKit = () => {
             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
           />
         </svg>
-        <span onClick={() => dispatch(logout())}>Logout</span>
+        <span>Logout</span>
+      </div>
+      <div
+        onClick={() => setBlockVisible(false)}
+        className="flex cursor-pointer p-3 w-full flex-row justify-start items-center hover:bg-gray-100"
+      >
+        Close
       </div>
     </div>
   );

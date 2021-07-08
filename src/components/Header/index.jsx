@@ -3,11 +3,15 @@ import { NavLink } from "react-router-dom";
 import Logo from "../../images/735145cfe0a4.png";
 import SearchBar from "../SearchBar";
 import AccountToolKit from "../AccountToolKit";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const arrBlock = ["", "editPost"];
 
   const [blockVisible, setBlockVisible] = useState(false);
+
+  const userReducer = useSelector((state) => state.userReducer);
+  const { currentUser } = userReducer;
 
   const getIcon = (name) => {
     switch (name) {
@@ -93,27 +97,46 @@ const Header = () => {
         </div>
         <div className="flex flex-row justify-end items-center">
           {arrBlock.map((el, i) => (
-            <NavLink key={i} to={`/${el}`} className="ml-5 font-light">
+            <NavLink
+              key={i}
+              to={`/${el}`}
+              className="ml-5 hover:bg-gray-200 p-1 font-light"
+            >
               {getIcon(el)}
             </NavLink>
           ))}
           <div className="relative  ml-5">
-            {blockVisible && <AccountToolKit />}
-            <svg
+            {blockVisible && (
+              <AccountToolKit setBlockVisible={setBlockVisible} />
+            )}
+
+            <div
+              className="cursor-pointer hover:bg-gray-200 p-1"
               onClick={() => setBlockVisible(!blockVisible)}
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 cursor-pointer"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              />
-            </svg>
+              {currentUser?.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  className="h-6 w-6 rounded-full"
+                  alt="avatar"
+                />
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 cursor-pointer"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { firestore } from "../../firebase/config";
 import firebase from "firebase";
 import { showModal } from "../../redux/action/modalAction/actions";
+import { setAccountList } from "../../redux/action/userAction/actions";
 
 const UserInfo = ({ user }) => {
   const firebaseReducer = useSelector((state) => state.firebaseReducer);
@@ -15,9 +16,16 @@ const UserInfo = ({ user }) => {
   const { postList } = postReducer;
 
   const userReducer = useSelector((state) => state.userReducer);
-  const { currentUser } = userReducer;
+  const { currentUser, userList } = userReducer;
 
   const dispatch = useDispatch();
+
+  const showFollowers = () => {
+    const list = followerList.map((followerId) =>
+      userList.find((el) => el.id === followerId)
+    );
+    dispatch(setAccountList({ accountList: list, title: "Followers" }));
+  };
 
   const handleFollow = () => {
     firestore
@@ -100,12 +108,12 @@ const UserInfo = ({ user }) => {
             </h3>
             {auth.uid !== id && (
               <div>
-                {!followerList.includes(auth.uid) ? (
+                {!followerList?.includes(auth.uid) ? (
                   <button
                     onClick={handleFollow}
                     className="px-8 py-3 bg-blue-600 text-white cursor-pointer hover:bg-blue-500 rounded focus:outline-none"
                   >
-                    {currentUser.followerList.includes(id)
+                    {currentUser.followerList?.includes(id)
                       ? "Follow back"
                       : "Follow"}
                   </button>
@@ -163,15 +171,16 @@ const UserInfo = ({ user }) => {
           <div className="md:flex hidden flex-row justify-start items-center">
             <p className="mr-8">
               <span className="font-bold">
-                {postList.filter((el) => el.uid === id).length}
+                {postList.filter((el) => el.uid === id)?.length}
               </span>{" "}
               posts
             </p>
-            <p className="mr-8">
-              <span className="font-bold">{followerList.length}</span> Followers
+            <p onClick={showFollowers} className="mr-8 cursor-pointer">
+              <span className="font-bold">{followerList?.length}</span>{" "}
+              Followers
             </p>
             <p className="mr-8">
-              <span className="font-bold">{followingList.length}</span>{" "}
+              <span className="font-bold">{followingList?.length}</span>{" "}
               Followings
             </p>
           </div>
@@ -185,15 +194,15 @@ const UserInfo = ({ user }) => {
       <div className="flex border-t border-solid border-gray-200 pt-5 mt-5 md:hidden flex-row justify-between items-center">
         <p className="mr-8">
           <span className="font-bold">
-            {postList.filter((el) => el.uid === id).length}
+            {postList.filter((el) => el.uid === id)?.length}
           </span>{" "}
           posts
         </p>
         <p className="mr-8">
-          <span className="font-bold">{followerList.length}</span> Followers
+          <span className="font-bold">{followerList?.length}</span> Followers
         </p>
         <p className="mr-8">
-          <span className="font-bold">{followingList.length}</span> Followings
+          <span className="font-bold">{followingList?.length}</span> Followings
         </p>
       </div>
     </div>

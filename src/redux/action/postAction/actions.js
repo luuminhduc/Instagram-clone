@@ -1,14 +1,18 @@
+import { hideLoading, showLoading } from '../loadingAction/actions';
+import { showModal } from '../modalAction/actions';
 import * as actions from './actionTypes';
 
 export const addPost = (post,history) => (dispatch, getState, {getFirebase,getFirestore}) => {
+    dispatch(showLoading());
     const firestore = getFirestore();
-    console.log(post);
     firestore.collection('posts').add(post)
     .then(() => {
         history.push('/');
+        dispatch(hideLoading());
     })
     .catch(err => {
-        console.log(err);
+        dispatch(hideLoading());
+        dispatch(showModal({title:"Something went wrong",text:err.message}))
     })
 }
 
